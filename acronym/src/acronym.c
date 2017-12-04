@@ -13,20 +13,37 @@ char capital(char c) {
     else return c;
 }
 
+// char* abbreviate(char* string) {
+//     if (string == NULL) return NULL;
+//     char* abbrev = malloc(strlen(string) * sizeof(char));
+//     int letters = 0;
+//     for (int i = 0; string[i] != '\0'; i++) {
+//         if (isletter(string[i])) {
+//             //letters += snprintf(abbrev+letters, 1, "%c", capital(string[i]));
+//             abbrev[letters] = string[i];
+//             letters++;
+//             // printf("\nLetters: %i Abbrev: %s Current %c", letters, abbrev, string[i]);
+//             i++;
+//             while (isletter(string[i]) && string[i] != '\0') i++; 
+//         }
+//         else continue;
+//     }
+//     return abbrev;
+// }
+
 char* abbreviate(char* string) {
-    if (string == NULL) return NULL;
+    if (string == NULL || !(strlen(string))) return NULL;
     char* abbrev = malloc(strlen(string) * sizeof(char));
     int letters = 0;
-    for (int i = 0; string[i] != '\0'; i++) {
+    int i = 0;
+    while (string[i] != '\0') {
         if (isletter(string[i])) {
-            letters += snprintf(abbrev+letters, 1, "%c", capital(string[i]));
-            printf("\nLetters: %i Abbrev: %s Current %c", letters, abbrev, string[i]);
+            sprintf(abbrev+letters, "%c", capital(string[i]));
+            letters++;
             i++;
             while (isletter(string[i]) && string[i] != '\0') i++; 
         }
+        else i++;
     }
-    char* final = malloc(letters * sizeof(char));
-    for (int i = 0; i <= letters; i++) snprintf(final+i, 1, "%c", abbrev[i]);  
-    free(abbrev);
-    return final;
+    return abbrev;
 }
